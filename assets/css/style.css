@@ -1,0 +1,537 @@
+  /* ================================
+   Variables & style global
+   ================================ */
+
+:root {
+    /* Palette inspirée univers café / féminin / chaleureux */
+    --couleur-fond: #f7f1e8;
+    --couleur-fond-clair: #fbf7f2;
+    --couleur-fond-sombre: #2f1b16;
+    --couleur-accent: #c98a7d;          /* ton rosé / terracotta doux */
+    --couleur-accent-doux: #e3b8aa;
+    --couleur-texte: #3b2a24;
+    --couleur-texte-clair: #ffffff;
+    --couleur-gris-doux: #ddd1c5;
+
+    --police-titres: "Playfair Display", serif;
+    --police-texte: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    --largeur-max: 1120px;
+    --rayon-carte: 14px;
+    --ombre-douce: 0 12px 30px rgba(0, 0, 0, 0.06);
+
+    --espacement-section: 4.5rem;
+    --espacement-section-mobile: 3rem;
+}
+
+/* Reset léger pour un rendu propre */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--police-texte);
+    color: var(--couleur-texte);
+    background-color: var(--couleur-fond);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Liens */
+
+a {
+    color: var(--couleur-accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Titres généraux */
+
+h1, h2, h3 {
+    font-family: var(--police-titres);
+    margin-top: 0;
+    color: var(--couleur-fond-sombre);
+}
+
+h1 {
+    font-size: clamp(2.4rem, 4vw, 3rem);
+}
+
+h2 {
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+}
+
+/* Sections & conteneur commun */
+
+.section-bloc {
+    padding: var(--espacement-section-mobile) 1.4rem;
+}
+
+.section-contenu {
+    max-width: var(--largeur-max);
+    margin: 0 auto;
+}
+
+.section-intro {
+    max-width: 680px;
+    margin-bottom: 2rem;
+}
+
+.section-note {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Adaptation desktop */
+
+@media (min-width: 900px) {
+    .section-bloc {
+        padding: var(--espacement-section) 1.5rem;
+    }
+}
+
+/* ================================
+   Bandeau actu
+   ================================ */
+
+.bandeau-actu {
+    background: linear-gradient(90deg, var(--couleur-accent), var(--couleur-accent-doux));
+    color: var(--couleur-texte-clair);
+    font-size: 0.95rem;
+    padding: 0.65rem 1.2rem;
+}
+
+.bandeau-actu p {
+    margin: 0;
+    text-align: center;
+}
+
+.bandeau-actu-label {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.8rem;
+    margin-right: 0.4rem;
+}
+
+.bandeau-actu-texte {
+    font-weight: 400;
+}
+
+/* ================================
+   En-tête / navigation
+   ================================ */
+
+.entete {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: rgba(247, 241, 232, 0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(221, 209, 197, 0.6);
+}
+
+.entete-contenu {
+    max-width: var(--largeur-max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 0.6rem 1.3rem;
+}
+
+.logo-lien {
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+
+.menu-principal {
+    display: none;
+    align-items: center;
+    gap: 1.2rem;
+    margin-left: auto;
+    font-size: 0.95rem;
+}
+
+.menu-principal a {
+    font-weight: 500;
+    color: var(--couleur-texte);
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.menu-principal a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: var(--couleur-accent);
+    transition: width 0.2s ease-out;
+}
+
+.menu-principal a:hover::after {
+    width: 100%;
+}
+
+.bouton-appel {
+    margin-left: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--couleur-accent);
+    color: var(--couleur-fond-sombre);
+    background-color: #ffffff;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.bouton-appel:hover {
+    background-color: var(--couleur-accent);
+    color: var(--couleur-texte-clair);
+    text-decoration: none;
+}
+
+/* Menu visible en desktop */
+
+@media (min-width: 800px) {
+    .menu-principal {
+        display: flex;
+    }
+
+    .bouton-appel {
+        margin-left: 0;
+    }
+}
+
+/* ================================
+   Hero / accueil
+   ================================ */
+
+.hero {
+    padding: 3.5rem 1.4rem 3rem;
+    background: radial-gradient(circle at top left, #fbeee1 0, #f7f1e8 40%, #f4e7da 100%);
+}
+
+.hero-contenu {
+    max-width: var(--largeur-max);
+    margin: 0 auto;
+}
+
+.hero-sous-titre {
+    margin-top: 0.6rem;
+    max-width: 640px;
+    font-size: 1.02rem;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.8rem 0 1.2rem;
+}
+
+.hero-accroche {
+    max-width: 640px;
+    font-size: 0.98rem;
+    opacity: 0.9;
+}
+
+/* Boutons principaux */
+
+.bouton-principal,
+.bouton-secondaire {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.bouton-principal {
+    background-color: var(--couleur-accent);
+    color: var(--couleur-texte-clair);
+}
+
+.bouton-principal:hover {
+    background-color: var(--couleur-fond-sombre);
+    text-decoration: none;
+}
+
+.bouton-secondaire {
+    background-color: transparent;
+    border-color: var(--couleur-accent);
+    color: var(--couleur-fond-sombre);
+}
+
+.bouton-secondaire:hover {
+    background-color: #ffffff;
+    text-decoration: none;
+}
+
+/* ================================
+   Section "La maison"
+   ================================ */
+
+.section-claire {
+    background-color: var(--couleur-fond-clair);
+}
+
+/* ================================
+   Section Thés
+   ================================ */
+
+.section-the {
+    background-color: #ffffff;
+}
+
+.grille-cartes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.carte-famille-the {
+    background-color: var(--couleur-fond-clair);
+    border-radius: var(--rayon-carte);
+    padding: 1.4rem 1.3rem;
+    box-shadow: var(--ombre-douce);
+}
+
+.carte-famille-the p {
+    margin-top: 0.15rem;
+    margin-bottom: 0.7rem;
+}
+
+.carte-famille-the ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.95rem;
+}
+
+/* 2 colonnes sur écran moyen / large */
+
+@media (min-width: 720px) {
+    .grille-cartes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Bloc extra thés */
+
+.bloc-extra-the {
+    margin-top: 2.2rem;
+    padding: 1.3rem 1.3rem;
+    border-radius: var(--rayon-carte);
+    border: 1px dashed var(--couleur-accent-doux);
+    background-color: #fffaf7;
+}
+
+/* ================================
+   Section Cafés
+   ================================ */
+
+.section-cafes {
+    background: linear-gradient(135deg, #f4e7da, #f7f1e8);
+}
+
+.grille-cafes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 1.4rem;
+}
+
+.carte-cafe {
+    background-color: #ffffff;
+    border-radius: var(--rayon-carte);
+    padding: 1.3rem 1.3rem;
+    box-shadow: var(--ombre-douce);
+}
+
+/* 3 colonnes sur grand écran, 2 sur médium */
+
+@media (min-width: 720px) {
+    .grille-cafes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1040px) {
+    .grille-cafes {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* ================================
+   Section Épicerie fine & déco
+   ================================ */
+
+.section-epicerie {
+    background-color: #ffffff;
+}
+
+/* ================================
+   Section Ambiance / Photos
+   ================================ */
+
+.section-ambiance {
+    background-color: var(--couleur-fond-clair);
+}
+
+.grille-photos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 1.4rem;
+}
+
+.photo-carte {
+    margin: 0;
+    background-color: #ffffff;
+    border-radius: var(--rayon-carte);
+    overflow: hidden;
+    box-shadow: var(--ombre-douce);
+}
+
+.photo-carte img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.photo-carte figcaption {
+    padding: 0.7rem 0.9rem 0.9rem;
+    font-size: 0.9rem;
+}
+
+/* 3 colonnes sur écran large */
+
+@media (min-width: 900px) {
+    .grille-photos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* ================================
+   Section Contact
+   ================================ */
+
+.section-contact {
+    background-color: #ffffff;
+}
+
+.contact-grille {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    margin-top: 1rem;
+}
+
+.contact-infos h3 {
+    margin-bottom: 0.3rem;
+}
+
+.contact-horaires {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+
+.contact-reseaux h3 {
+    margin-top: 1.4rem;
+    margin-bottom: 0.3rem;
+}
+
+.carte-placeholder {
+    border-radius: var(--rayon-carte);
+    border: 1px dashed var(--couleur-gris-doux);
+    padding: 1.4rem 1.2rem;
+    font-size: 0.95rem;
+    background-color: var(--couleur-fond-clair);
+}
+
+.carte-note {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 2 colonnes sur écran large */
+
+@media (min-width: 900px) {
+    .contact-grille {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+        align-items: flex-start;
+    }
+}
+
+/* ================================
+   Pied de page
+   ================================ */
+
+.pied-page {
+    background-color: var(--couleur-fond-sombre);
+    color: var(--couleur-texte-clair);
+    padding: 1.6rem 1.3rem 1.9rem;
+    font-size: 0.9rem;
+}
+
+.pied-page-contenu {
+    max-width: var(--largeur-max);
+    margin: 0 auto;
+}
+
+.pied-page-mentions {
+    opacity: 0.8;
+    margin-top: 0.4rem;
+}
+
+/* ================================
+   Petits ajustements responsive
+   ================================ */
+
+@media (max-width: 480px) {
+    .entete-contenu {
+        padding-inline: 1rem;
+    }
+
+    .hero {
+        padding-inline: 1rem;
+    }
+
+    .section-bloc {
+        padding-inline: 1rem;
+    }
+}
